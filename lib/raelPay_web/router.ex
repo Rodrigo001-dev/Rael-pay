@@ -7,6 +7,11 @@ defmodule RaelPayWeb.Router do
 
   scope "/api", RaelPayWeb do
     pipe_through :api
+
+    # dentro do escopo api esta sendo criado uma rota do tipo Get para o
+    # endereço / e o WelcomeController vai receber essa requisição na action
+    # chamada index
+    get "/", WelcomeController, :index
   end
 
   # Enables LiveDashboard only for development
