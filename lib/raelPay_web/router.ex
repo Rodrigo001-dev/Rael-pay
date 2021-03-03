@@ -11,7 +11,9 @@ defmodule RaelPayWeb.Router do
     # dentro do escopo api esta sendo criado uma rota do tipo Get para o
     # endereço / e o WelcomeController vai receber essa requisição na action
     # chamada index
-    get "/", WelcomeController, :index
+    # esse :filename quer dizer que pela URL vai receber o nome do arquivo que
+    # vai ser lido e vai ter a soma
+    get "/:filename", WelcomeController, :index
   end
 
   # Enables LiveDashboard only for development
