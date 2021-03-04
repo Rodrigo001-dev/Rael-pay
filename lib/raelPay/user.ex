@@ -5,6 +5,7 @@ defmodule RaelPay.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias RaelPay.Account
   alias Ecto.Changeset
 
   # @primary_key é uma variável de modulo, como se fosse uma variável constante
@@ -25,6 +26,8 @@ defmodule RaelPay.User do
     field :password, :string, virtual: true
     field :password_hash, :string
     field :nickname, :string
+    # fazendo a relação que o usuário tem uma conta(account)
+    has_one :account, Account
 
     timestamps()
   end
