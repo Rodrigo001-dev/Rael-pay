@@ -1,9 +1,8 @@
 defmodule RaelPay do
-  @moduledoc """
-  RaelPay keeps the contexts that define your domain
-  and business logic.
+  alias RaelPay.Users.Create, as: UserCreate
 
-  Contexts are also responsible for managing your data, regardless
-  if it comes from the database, an external API or others.
-  """
+  # aqui eu estou criando uma fachada, ou seja, todo o usuário da minha
+  # aplicação vai conhecer só esse modulo (RaelPay)
+  # esse as: quer dizer que eu estou chamando a função call
+  defdelegate create_user(params), to: UserCreate, as: :call
 end

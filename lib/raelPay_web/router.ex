@@ -14,6 +14,8 @@ defmodule RaelPayWeb.Router do
     # esse :filename quer dizer que pela URL vai receber o nome do arquivo que
     # vai ser lido e vai ter a soma
     get "/:filename", WelcomeController, :index
+
+    post "/users", UsersController, :create
   end
 
   # Enables LiveDashboard only for development
