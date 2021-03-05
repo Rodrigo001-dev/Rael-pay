@@ -17,7 +17,7 @@ defmodule RaelPay.Accounts.Deposit do
       # caso o meu repo.get me retorne nil(nulo) que quer dizer que ele não
       # encontrou ninhuma conta com esse id no banco de dados, então vou
       # devolver um error
-      nil -> {:error, "Account, not found!"}
+      nil -> {:error, "Account not found!"}
       # e se eu receber uma conta eu vou devolver um ok e um account
       account -> {:ok, account}
     end
@@ -46,7 +46,7 @@ defmodule RaelPay.Accounts.Deposit do
 
   # se eu receber um ok e um valor quer dizer que eu posso somar esses valores
   # a função Decimal.add() vai somar dois decimais
-  defp handle_cast({:ok, value}, balance), do: Decimal.add(value, balance)
+  defp handle_cast({:ok, value}, balance), do: Decimal.add(balance, value)
   # caso eu receba um error eu vou devolver um erro para o usuário
   defp handle_cast(:error, _balance), do: {:error, "Invalid deposit value!"}
 

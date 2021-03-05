@@ -22,6 +22,12 @@ defmodule RaelPayWeb.ErrorView do
     %{message:  translate_errors(changeset)}
   end
 
+  # se não der match no Changeset eu vou ter uma menssagem no result e vou
+  #  renderizar a menssagem
+  def render("400.json", %{result: message}) do
+    %{message: message}
+  end
+
   defp translate_errors(changeset) do
     traverse_errors(changeset, fn {msg, opts} ->
       Enum.reduce(opts, msg, fn {key, value}, acc ->
