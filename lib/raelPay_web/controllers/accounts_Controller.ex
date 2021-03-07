@@ -33,10 +33,7 @@ defmodule RaelPayWeb.AccountsController do
   end
 
   def transaction(conn, params) do
-    # utilizando tasks
-    task = Task.async(fn -> RaelPay.transaction(params) end)
-
-    with {:ok, %TransactionResponse{} = transaction} <- Task.await(task) do
+    with {:ok, %TransactionResponse{} = transaction} <- RaelPay.transaction(params) do
       conn
       |> put_status(:ok)
       |> render("transaction.json", transaction: transaction)

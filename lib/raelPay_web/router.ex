@@ -1,11 +1,24 @@
 defmodule RaelPayWeb.Router do
   use RaelPayWeb, :router
 
+  import Plug.BasicAuth
+
+  # o pipeline é como se fosse as regras que as rotas tem que seguir
   pipeline :api do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    # o Application.compile_env!() em tempo de compilação ele vai ler a
+    # configuração que eu passei para ele
+    # o plug é uma convenção de composição de modulos para manipular a conexão
+    # o plug permite criar modulos que recebam a conexão e a modifique
+    plug :basic_auth, Application.compile_env(:raelPay, :basic_auth)
+  end
+
   scope "/api", RaelPayWeb do
+    # quando eu coloco esse pipe_through quer dizer que todas as rotas dentro
+    # desse escopo deve seguir as regras do pipeline api
     pipe_through :api
 
     # dentro do escopo api esta sendo criado uma rota do tipo Get para o
@@ -16,6 +29,10 @@ defmodule RaelPayWeb.Router do
     get "/:filename", WelcomeController, :index
 
     post "/users", UsersController, :create
+  end
+
+  scope "/api", RaelPayWeb do
+    pipe_through [:api, :auth]
 
     post "/accounts/:id/deposit", AccountsController, :deposit
     post "/accounts/:id/withdraw", AccountsController, :withdraw
